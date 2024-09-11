@@ -12,6 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.helloworld.ui.theme.HelloWorldTheme
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Button
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +35,21 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+fun HelloWorldApp(modifier: Modifier = Modifier) {
+    val showGreeting = remember { mutableStateOf(false) }
+
+    Column(modifier = modifier) {
+        Button(onClick = { showGreeting.value = true }) {
+            Text("Show Greeting")
+        }
+        if (showGreeting.value) {
+            Greeting("World")
+        }
+    }
+}
+
+
+@Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
@@ -42,6 +61,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     HelloWorldTheme {
-        Greeting("World")
+        HelloWorldApp()
     }
 }
